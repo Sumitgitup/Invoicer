@@ -1,6 +1,5 @@
-import { password } from "bun";
+
 import { Schema, model, Document } from "mongoose";
-import { isStringLiteral } from "typescript";
 
 // used Document to inherit all the properties of mongoose library
 export interface IUser extends Document {
