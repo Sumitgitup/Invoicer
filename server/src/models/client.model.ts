@@ -24,6 +24,9 @@ const clientSchema = new Schema<ICLient> ({
     address: {
         type: String,
     },
+    user: {
+        type: Schema.Types.ObjectId, ref: 'User', required: true
+    },
 },{timestamps: true});
 
 export const Client = model<ICLient>('Client', clientSchema);

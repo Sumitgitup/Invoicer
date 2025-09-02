@@ -13,7 +13,7 @@ declare global{
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeaders = req.headers.authorization;
     if (!authHeaders || !authHeaders.startsWith('Bearer ')) {
-        return res.status(401).json({ success: false, messsage: 'Unauthorized: NO token provided'})
+        return res.status(401).json({ success: false, message: 'Unauthorized: NO token provided'})
     }
 
     const token = authHeaders.split(' ')[1];
