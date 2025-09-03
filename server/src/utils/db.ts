@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
 
+
+import mongoose from "mongoose";
 
 export const connectDB = async () => {
     const dbUrl =  process.env.DB_URI;

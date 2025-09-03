@@ -8,7 +8,7 @@ import { registerUserSchema } from '../validations/auth.validation';
 const router = Router();
 
 router.get(
-    '/users',
+    '/me',
     getAlluserController
 )
 
