@@ -45,7 +45,7 @@ export const registerUserService = async (userData: IUserdata) => {
     // Return user data (without password)
     const userObject = newUser.toObject();
     delete (userObject as any).password;
-    return {userObject, token};
+    return { user: userObject, token};
 
 };
 
