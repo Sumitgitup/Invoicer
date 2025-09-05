@@ -1,13 +1,24 @@
 
 import { Router } from 'express';
-import { createClientController, getAllClientsController } from '../controllers/client.controller';
+import { 
+    createClientController,
+    deleteClientController, 
+    getAllClientsController, 
+    getClientByIdController, 
+    updateClientController } from '../controllers/client.controller';
 
 import { authMiddleware } from '../middleware/auth.middleware';
 
 const  router = Router();
 
-router.post('/', authMiddleware, createClientController);
+router.route('/')
+  .post(authMiddleware, createClientController)
+  .get(authMiddleware, getAllClientsController);
 
-router.get('/', authMiddleware, getAllClientsController)
+// Routes for a specific item (/api/clients/:id)
+router.route('/:id')
+  .get(authMiddleware, getClientByIdController)
+  .put(authMiddleware, updateClientController)
+  .delete(authMiddleware, deleteClientController);
 
 export default router;
