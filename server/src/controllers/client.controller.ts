@@ -6,6 +6,12 @@ import { createClientService, getAllClientsService } from '../services/client.se
 
 export const createClientController = async(req: Request, res: Response) => {
     try {
+
+        if (!req.user) {
+             // This should technically never be reached if authMiddleware is used correctly
+             return res.status(401).json({ success: false, message: 'Unauthorized' });
+        }
+        
         const client = await createClientService(req.body, req.user.id)
         return res.status(201).json({success: true, data: client})
     } catch (error: any) {
@@ -15,11 +21,11 @@ export const createClientController = async(req: Request, res: Response) => {
 
 export const getAllClientsController = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user?.id;
     // Get the search term from the URL query string (e.g., /clients?search=corp)
     const searchQuery = req.query.search as string | undefined;
 
-    const clients = await getAllClientsService(userId, searchQuery);
+    const clients = await getAllClientsService(userId!, searchQuery);
     
     return res.status(200).json({ success: true, data: clients });
   } catch (error) {

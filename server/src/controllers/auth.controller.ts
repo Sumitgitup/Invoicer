@@ -1,32 +1,30 @@
 import type { Request, Response } from "express";
 import {
-  getAllUsersServices,
   registerUserService,
   loginUserService,
+  getMeService
 } from "../services/auth.service";
 
-export const registerUserController = async (req: Request, res: Response) => {
+export const getMeController = async (req: Request, res: Response) => {
   try {
-    const user = await registerUserService(req.body);
-    return res.status(201).json({ success: true, data: user });
+    // req.user is attached by the authMiddleware
+    if (!req.user?.id) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+    const user = await getMeService(req.user.id);
+    return res.status(200).json({ success: true, data: user });
   } catch (error: any) {
-    return res.status(400).json({ message: error.message });
+    return res.status(404).json({ success: false, message: error.message });
   }
 };
 
-export const getAlluserController = async (req: Request, res: Response) => {
+export const registerUserController = async (req: Request, res: Response) => {
   try {
-    const users = await getAllUsersServices();
-
-    return res.status(200).json({
-      success: true,
-      data: users,
-    });
-  } catch (error) {
-    console.error("Failed to get users:", error);
-    return res
-      .json(500)
-      .json({ success: false, message: "Internal server error" });
+    const result = await registerUserService(req.body);
+    return res.status(201).json({ success: true, data: result });
+  } catch (error: any) {
+    const statusCode = error.message.includes('exists') ? 409 : 400;
+    return res.status(statusCode).json({ success: false, message: error.message });
   }
 };
 

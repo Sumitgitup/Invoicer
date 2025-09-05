@@ -10,4 +10,4 @@ router.post('/', authMiddleware, createClientController);
 
 router.get('/', authMiddleware, getAllClientsController)
 
-export default router
+export default router;

@@ -1,6 +1,6 @@
 
 
-import {Schema, model} from "mongoose";
+import {Schema, model, Document} from "mongoose";
 
 export interface ICLient extends Document{
     name: string,
@@ -17,7 +17,6 @@ const clientSchema = new Schema<ICLient> ({
     email: {
         type: String,
         required: true,
-        unique: true,
         trim: true
     },
 
@@ -29,4 +28,6 @@ const clientSchema = new Schema<ICLient> ({
     },
 },{timestamps: true});
 
+
+clientSchema.index({user:1, email:1}, {unique: true})
 export const Client = model<ICLient>('Client', clientSchema);

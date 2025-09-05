@@ -1,16 +1,11 @@
 
 
 
-import { email } from "zod";
-import { Client } from "../models/client.model";
 
-export interface ICLientData extends Document {
-    name: string,
-    email: string,
-    address?: string,
-}
+import { Client, ICLient } from "../models/client.model";
 
-export const createClientService = async (clientData: ICLientData, userId: string) => {
+
+export const createClientService = async (clientData: ICLient, userId: string) => {
     const {name, email, address} = clientData;
 
 
@@ -35,11 +30,13 @@ export const getAllClientsService = async (userId: string, searchQuery?: string)
 
     if (searchQuery) {
         query.$or = [
-            {name: {$regex: searchQuery, $option: 'i'}},
-            {email:{$regex: searchQuery, $option: 'i'}}
+            {name: {$regex: searchQuery, $options: 'i'}},
+            {email:{$regex: searchQuery, $options: 'i'}}
         ];
     }
 
     const clients = await Client.find(query);
     return clients;
 }
+
+
