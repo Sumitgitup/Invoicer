@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
-import { ZodObject } from 'zod'; // Use ZodObject for better flexibility
+import { Request, Response, NextFunction } from "express";
+import { ZodObject } from "zod"; // Use ZodObject for better flexibility
 
-export const validate = (schema: ZodObject) => 
+export const validate =
+  (schema: ZodObject) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       // THE FIX: Pass an object that matches the schema's shape
@@ -14,4 +15,4 @@ export const validate = (schema: ZodObject) =>
     } catch (error) {
       return res.status(400).json(error);
     }
-};
+  };

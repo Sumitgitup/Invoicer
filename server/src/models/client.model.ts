@@ -1,33 +1,35 @@
+import { Schema, model, Document } from "mongoose";
 
-
-import {Schema, model, Document} from "mongoose";
-
-export interface ICLient extends Document{
-    name: string,
-    email: string,
-    address?: string,
-    user: Schema.Types.ObjectId;
+export interface ICLient extends Document {
+  name: string;
+  email: string;
+  address?: string;
+  user: Schema.Types.ObjectId;
 }
 
-const clientSchema = new Schema<ICLient> ({
+const clientSchema = new Schema<ICLient>(
+  {
     name: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        trim: true
+      type: String,
+      required: true,
+      trim: true,
     },
 
     address: {
-        type: String,
+      type: String,
     },
     user: {
-        type: Schema.Types.ObjectId, ref: 'User', required: true
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
-},{timestamps: true});
+  },
+  { timestamps: true }
+);
 
-
-clientSchema.index({user:1, email:1}, {unique: true})
-export const Client = model<ICLient>('Client', clientSchema);
+clientSchema.index({ user: 1, email: 1 }, { unique: true });
+export const Client = model<ICLient>("Client", clientSchema);
