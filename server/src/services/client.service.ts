@@ -1,4 +1,4 @@
-import { server } from "typescript";
+
 import { Client, ICLient } from "../models/client.model";
 
 // Create a client with user jwt token as header
