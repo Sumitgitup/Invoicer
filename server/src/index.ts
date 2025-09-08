@@ -5,6 +5,7 @@ import clientRoutes from "./routes/client.routes";
 import authRoutes from "./routes/auth.routes";
 import { connectDB } from "./utils/db";
 import { errorMiddleware } from "./middleware/error.middleware";
+import invoiceRoutes from "./routes/invoice.routes"
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.get("/api/health-check", (req, res) => {
 // Route all the coming to the authRoute
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/client", clientRoutes);
+app.use("/api/v1/invoices", invoiceRoutes);
+
 
 app.use(errorMiddleware);
 
