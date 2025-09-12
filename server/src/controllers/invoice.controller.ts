@@ -1,8 +1,8 @@
 
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import { createInvoiceService, getAllInvoiceService } from '../services/invoice.service';
-import { success } from 'zod';
+import { createInvoiceService, getAllInvoicesService } from '../services/invoice.service';
+
 
 export const createInvoiceController = asyncHandler(async (req: Request, res: Response) => {
     if (!req.user) {
@@ -15,12 +15,12 @@ export const createInvoiceController = asyncHandler(async (req: Request, res: Re
 })
 
 
-export const getyAllInvoicesController = asyncHandler(async (req: Request, res: Response) => {
+export const getAllInvoicesController = asyncHandler(async (req: Request, res: Response) => {
     if (!req.user) {
         res.status(401);
         throw new Error('Unauthorized');
     }
 
-    const invoices = await getAllInvoiceService(req.user.id);
+    const invoices = await getAllInvoicesService(req.user.id);
     res.status(200).json({ success: true, data: invoices})
 })
