@@ -1,0 +1,8 @@
+/* Invoicer/client/src/index.css */
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+}

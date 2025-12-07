@@ -10,6 +10,10 @@ export const getMeService = async (userId: string) => {
   return user;
 };
 
+/*
+  * This is the register function which we use to get the user details and create a JWT.
+
+*/
 export const registerUserService = async (userData: IUser) => {
   const { name, email, password } = userData;
 
@@ -55,3 +59,5 @@ export const loginUserService = async (loginData: IUser) => {
 
   return { token };
 };
+
+
